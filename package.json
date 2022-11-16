@@ -1,9 +1,9 @@
 {
-  "name": "hitbtc-monitor-backen",
+  "name": "nestjs-typescript-husky-prettier-boilderplate",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "description": "nestjs(ts) boliderplate with husky, prettier, boilderplate configuration",
+  "author": "toptal126@gmail.com",
+  "private": false,
   "license": "UNLICENSED",
   "scripts": {
     "prebuild": "rimraf dist",
@@ -78,6 +78,6 @@
     "testEnvironment": "node"
   },
   "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "*.ts, *.json": "eslint --cache --fix"
   }
 }
