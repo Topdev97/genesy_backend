@@ -30,6 +30,9 @@ export class Profile {
 
   @Prop()
   twitter: string;
+
+  @Prop({ default: 0 })
+  volumeWeek: number;
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);
