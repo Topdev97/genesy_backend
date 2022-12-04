@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
 import { UpdateNftDto } from './nft.dto';
-import { NftService } from './Nft.service';
+import { NftService } from './nft.service';
 
 @Controller('nfts')
 export class NftController {
