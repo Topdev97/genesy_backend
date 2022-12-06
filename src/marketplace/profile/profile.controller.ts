@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { UpdateProfileDto } from './profile.dto';
 import { ProfileService } from './profile.service';
 
@@ -16,6 +17,7 @@ export class ProfileController {
     return await this.service.getProfile(wallet);
   }
   @Put(':wallet')
+  @ApiOperation({ description: 'https://prnt.sc/flV4MpfAuRW3' })
   async updateProfile(
     @Param('wallet') wallet: string,
     @Body() updateProfile: UpdateProfileDto,

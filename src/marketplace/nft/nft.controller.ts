@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { ApiOperation } from '@nestjs/swagger';
 import { UpdateNftDto } from './nft.dto';
 import { NftService } from './nft.service';
 
@@ -16,6 +17,7 @@ export class NftController {
     return await this.service.findItem(tokenId);
   }
   @Put(':tokenId')
+  @ApiOperation({ description: 'https://prnt.sc/qmyW4JdZ8Txt' })
   async updateNftItem(
     @Param('tokenId') tokenId: string,
     @Body() updateNftDto: UpdateNftDto,

@@ -22,8 +22,8 @@ export class Profile {
   @Prop({ required: true, default: false })
   verified: boolean;
 
-  @Prop({ required: true, default: false })
-  feedOrder: T_FEED_ORDER;
+  @Prop({ required: true, default: 0 })
+  feedOrder: 0 | 1;
 
   @Prop()
   avatarLink: string;

@@ -6,7 +6,7 @@ export class BaseProfileDto {
   //   uuid: string;
   //   artist: boolean;
   //   verified: boolean;
-  feedOrder: T_FEED_ORDER;
+  feedOrder: 0 | 1;
   avatarLink: string;
   twitter: string;
 }
