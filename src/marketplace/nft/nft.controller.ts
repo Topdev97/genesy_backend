@@ -24,4 +24,13 @@ export class NftController {
   ) {
     return await this.service.updateNftItem(tokenId, updateNftDto);
   }
+
+  @Get('artist/:wallet')
+  async getNftItemsByWallet(@Param('wallet') wallet: string) {
+    return await this.service.getNftItemsByWallet(wallet);
+  }
+  @Get('user/:wallet')
+  async getNftItemsByUser(@Param('wallet') wallet: string) {
+    return await this.service.getNftItemsByUser(wallet);
+  }
 }

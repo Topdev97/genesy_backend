@@ -10,6 +10,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors();
+  // app.enableCors({ origin: '*' });
 
   const config = new DocumentBuilder()
     .setTitle('Backend Tester - Swagger')
