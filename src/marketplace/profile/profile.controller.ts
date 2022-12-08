@@ -11,6 +11,10 @@ export class ProfileController {
   async index() {
     return await this.service.findAll();
   }
+  @Get('artist')
+  async getArtists() {
+    return await this.service.findAllArtist();
+  }
 
   @Get(':wallet')
   async getProfile(@Param('wallet') wallet: string) {

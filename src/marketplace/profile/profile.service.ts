@@ -14,6 +14,9 @@ export class ProfileService {
   async findAll(): Promise<Profile[]> {
     return await this.profileModel.find().lean().exec();
   }
+  async findAllArtist(): Promise<Profile[]> {
+    return await this.profileModel.find({ artist: true }).lean().exec();
+  }
   async getProfile(wallet: string): Promise<Profile> {
     return await this.profileModel.findOne({ wallet }).lean().exec();
   }
