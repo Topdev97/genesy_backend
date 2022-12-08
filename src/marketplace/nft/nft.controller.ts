@@ -19,7 +19,7 @@ export class NftController {
   @Put(':tokenId')
   @ApiOperation({ description: 'https://prnt.sc/qmyW4JdZ8Txt' })
   async updateNftItem(
-    @Param('tokenId') tokenId: string,
+    @Param('tokenId') tokenId: number,
     @Body() updateNftDto: UpdateNftDto,
   ) {
     return await this.service.updateNftItem(tokenId, updateNftDto);
@@ -32,5 +32,9 @@ export class NftController {
   @Get('user/:wallet')
   async getNftItemsByUser(@Param('wallet') wallet: string) {
     return await this.service.getNftItemsByUser(wallet);
+  }
+  @Get('primary/:order')
+  async getPrimaryItems(@Param('order') order: number) {
+    return await this.service.getPrimaryItems(order);
   }
 }
