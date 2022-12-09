@@ -7,6 +7,7 @@ import { ProfileController } from './profile/profile.controller';
 import { NftService } from './nft/nft.service';
 import { NftController } from './nft/nft.controller';
 import { Nft, NftSchema } from './nft/nft.schema';
+import { NftLog, NftLogSchema } from './nft/nftLog.schema';
 
 @Module({
   providers: [ProfileService, NftService],
@@ -16,6 +17,7 @@ import { Nft, NftSchema } from './nft/nft.schema';
       [
         { name: Profile.name, schema: ProfileSchema },
         { name: Nft.name, schema: NftSchema },
+        { name: NftLog.name, schema: NftLogSchema },
       ],
       'test',
     ),

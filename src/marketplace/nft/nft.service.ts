@@ -4,12 +4,16 @@ import { Model } from 'mongoose';
 import { ProfileService } from '../profile/profile.service';
 import { UpdateNftDto } from './nft.dto';
 import { Nft, NftDocument } from './nft.schema';
+import { CreateNftLogDto } from './nftLog.dto';
+import { NftLog, NftLogDocument } from './nftLog.schema';
 
 @Injectable()
 export class NftService {
   constructor(
     @InjectModel(Nft.name)
     private readonly nftModel: Model<NftDocument>,
+    @InjectModel(NftLog.name)
+    private readonly nftLogModel: Model<NftLogDocument>,
     private readonly profileService: ProfileService,
   ) {}
 
@@ -50,5 +54,20 @@ export class NftService {
     if (order === 1) sort.curated = 1;
     return await this.nftModel.find().sort(sort).lean().exec();
     // await this.nftModel.find({}).lean().exec();
+  }
+
+  async getLogByTokenId(tokenId: number): Promise<NftLog[]> {
+    return await this.nftLogModel.find({ tokenId }).lean().exec();
+  }
+  async createLogByTokenId(
+    tokenId: number,
+    createNftLogDto: CreateNftLogDto,
+  ): Promise<NftLog> {
+    const newLog = await this.nftLogModel.create({
+      tokenId,
+      ...createNftLogDto,
+    });
+    newLog.save();
+    return newLog;
   }
 }

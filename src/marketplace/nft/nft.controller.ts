@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { UpdateNftDto } from './nft.dto';
 import { NftService } from './nft.service';
+import { CreateNftLogDto } from './nftLog.dto';
 
 @Controller('nfts')
 export class NftController {
@@ -36,5 +37,17 @@ export class NftController {
   @Get('primary/:order')
   async getPrimaryItems(@Param('order') order: number) {
     return await this.service.getPrimaryItems(order);
+  }
+
+  @Get('log/:tokenId')
+  async getLogByTokenId(@Param('tokenId') tokenId: number) {
+    return await this.service.getLogByTokenId(tokenId);
+  }
+  @Post('log/:tokenId')
+  async createLogByTokenId(
+    @Param('tokenId') tokenId: number,
+    @Body() createNftLogDto: CreateNftLogDto,
+  ) {
+    return await this.service.createLogByTokenId(tokenId, createNftLogDto);
   }
 }
