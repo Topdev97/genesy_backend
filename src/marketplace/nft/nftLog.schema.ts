@@ -9,7 +9,7 @@ export class NftLog {
   tokenId: number;
 
   @Prop({ required: true })
-  name: Date;
+  timestamp: Date;
 
   @Prop({ required: true })
   text: string;

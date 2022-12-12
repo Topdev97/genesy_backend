@@ -1,5 +1,5 @@
 export class BaseNftLogDto {
-  name: Date;
+  timestamp: Date;
   text: string;
 }
 
