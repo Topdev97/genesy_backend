@@ -27,6 +27,9 @@ export class Nft {
   price: number;
 
   @Prop({ default: 0 })
+  royalty: number;
+
+  @Prop({ default: 0 })
   lastSoldAmount: number;
 
   @Prop({ default: new Date(0) })
@@ -34,6 +37,7 @@ export class Nft {
 
   @Prop({ default: new Date(0) })
   mintedAt: Date;
+
   @Prop({ default: false })
   curated: boolean;
 }

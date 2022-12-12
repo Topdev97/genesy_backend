@@ -5,6 +5,7 @@ export class BaseNftDto {
   artist: string;
   owner: string;
   price: number;
+  royalty: number;
   lastSoldAmount: number;
   lastSoldAt: Date;
   mintedAt: Date;
