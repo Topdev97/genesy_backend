@@ -33,6 +33,9 @@ export class Profile {
 
   @Prop({ default: 0 })
   volumeWeek: number;
+
+  @Prop({ default: 0 })
+  totalVolume: number;
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

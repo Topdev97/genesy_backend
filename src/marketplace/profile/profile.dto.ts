@@ -9,6 +9,7 @@ export class BaseProfileDto {
   feedOrder: 0 | 1;
   avatarLink: string;
   twitter: string;
+  totalVolume: number;
 }
 
 export class UpdateProfileDto extends BaseProfileDto {}

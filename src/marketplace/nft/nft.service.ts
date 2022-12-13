@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Profile, ProfileDocument } from '../profile/profile.schema';
 import { ProfileService } from '../profile/profile.service';
 import { UpdateNftDto } from './nft.dto';
 import { Nft, NftDocument } from './nft.schema';
@@ -12,6 +13,8 @@ export class NftService {
   constructor(
     @InjectModel(Nft.name)
     private readonly nftModel: Model<NftDocument>,
+    @InjectModel(Profile.name)
+    private readonly profileModel: Model<ProfileDocument>,
     @InjectModel(NftLog.name)
     private readonly nftLogModel: Model<NftLogDocument>,
     private readonly profileService: ProfileService,
@@ -46,6 +49,32 @@ export class NftService {
         upsert: true,
       })
       .exec();
+  }
+  async getMarketItems() {
+    const [recentSales, topPrice, bestArtists] = await Promise.all([
+      this.nftModel.find({}).sort({ lastSoldAt: -1 }).limit(8).lean().exec(),
+      this.nftModel
+        .find({
+          lastSoldAt: {
+            $gte: new Date(new Date().getTime() - 3600 * 24 * 7 * 1000),
+          },
+        })
+        .sort({ lastSoldAt: -1 })
+        .limit(8)
+        .lean()
+        .exec(),
+      this.profileModel
+        .find({})
+        .sort({ totalVolume: -1 })
+        .limit(8)
+        .lean()
+        .exec(),
+    ]);
+    return {
+      recentSales,
+      topPrice,
+      bestArtists,
+    };
   }
 
   async getPrimaryItems(order: number) {

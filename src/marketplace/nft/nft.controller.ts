@@ -13,6 +13,11 @@ export class NftController {
     return await this.service.findAll();
   }
 
+  @Get('market')
+  async getMarketItems() {
+    return await this.service.getMarketItems();
+  }
+
   @Get(':tokenId')
   async getNftItem(@Param('tokenId') tokenId: number) {
     return await this.service.findItem(tokenId);
