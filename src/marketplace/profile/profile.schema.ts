@@ -10,8 +10,8 @@ export class Profile {
   username: string;
   @Prop()
   description: string;
-  @Prop({ required: true })
-  uuid: string;
+  // @Prop({ required: true })
+  // uuid: string;
 
   @Prop({ required: true, sparse: true })
   wallet: string;
@@ -36,6 +36,9 @@ export class Profile {
 
   @Prop({ default: 0 })
   totalVolume: number;
+
+  @Prop({ default: [] })
+  friends: string[];
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);

@@ -85,6 +85,35 @@ export class NftService {
     // await this.nftModel.find({}).lean().exec();
   }
 
+  async getPeersByArtistAndWallet(
+    artist: string,
+    wallet: string,
+  ): Promise<Set<string>> {
+    try {
+      const profile = await this.profileModel.findOne({ wallet }).exec();
+      const peers = await this.nftModel
+        .find({ artist, owner: { $in: profile.friends } })
+        .lean()
+        .select({
+          owner: 1,
+          name: 0,
+          description: 0,
+          imageLink: 0,
+          tokenId: 0,
+          price: 0,
+          royalty: 0,
+          lastSoldAmount: 0,
+          lastSoldAt: 0,
+          mintedAt: 0,
+          curated: 0,
+        })
+        .exec();
+      const peersWallet = peers.map((item) => item.owner);
+      return new Set(peersWallet);
+    } catch (error) {
+      return new Set<string>([]);
+    }
+  }
   async getLogByTokenId(tokenId: number): Promise<NftLog[]> {
     return await this.nftLogModel.find({ tokenId }).lean().exec();
   }

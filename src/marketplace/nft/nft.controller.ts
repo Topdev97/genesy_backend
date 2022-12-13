@@ -44,6 +44,13 @@ export class NftController {
     return await this.service.getPrimaryItems(order);
   }
 
+  @Get('peers/:artist/:wallet')
+  async getPeersByArtistAndWallet(
+    @Param('artist') artist: string,
+    @Param('wallet') wallet: string,
+  ) {
+    return await this.service.getPeersByArtistAndWallet(artist, wallet);
+  }
   @Get('log/:tokenId')
   async getLogByTokenId(@Param('tokenId') tokenId: number) {
     return await this.service.getLogByTokenId(tokenId);

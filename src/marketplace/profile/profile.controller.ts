@@ -28,4 +28,11 @@ export class ProfileController {
   ) {
     return await this.service.updateProfile(wallet, updateProfile);
   }
+  @Put('toggleFriend/:wallet/:friend')
+  async toggleFriend(
+    @Param('wallet') wallet: string,
+    @Param('friend') friend: string,
+  ) {
+    return await this.service.toggleFriend(wallet, friend);
+  }
 }
