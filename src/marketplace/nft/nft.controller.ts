@@ -40,7 +40,7 @@ export class NftController {
     return await this.service.getNftItemsByUser(wallet);
   }
   @Get('primary/:order')
-  async getPrimaryItems(@Param('order') order: number) {
+  async getPrimaryItems(@Param('order') order: string) {
     return await this.service.getPrimaryItems(order);
   }
 
