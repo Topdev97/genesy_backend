@@ -89,12 +89,26 @@ export class NftService {
   async getPeersByArtistAndWallet(
     artist: string,
     wallet: string,
-  ): Promise<Set<any>> {
+  ): Promise<any[]> {
     try {
       const profile = await this.profileModel.findOne({ wallet }).exec();
       const peers = await this.nftModel
-        .find({ artist, owner: { $in: profile.friends } })
-        .lean()
+        .find(
+          { artist, owner: { $in: profile.friends } },
+          {
+            owner: 1,
+            name: 1,
+            description: 0,
+            imageLink: 1,
+            tokenId: 0,
+            price: 0,
+            royalty: 0,
+            lastSoldAmount: 0,
+            lastSoldAt: 0,
+            mintedAt: 0,
+            curated: 0,
+          },
+        )
         .select({
           owner: 1,
           name: 1,
@@ -108,15 +122,21 @@ export class NftService {
           mintedAt: 0,
           curated: 0,
         })
+        .lean()
         .exec();
       const peersWallet = peers.map((item) => ({
         owner: item.owner,
         name: item.name,
         avatarLink: item.imageLink,
       }));
-      return new Set(peersWallet);
+      const uniqueArray = (a) =>
+        [...new Set(a.map((o) => JSON.stringify(o)))].map((s) =>
+          JSON.parse(s as any),
+        );
+
+      return uniqueArray(peersWallet);
     } catch (error) {
-      return new Set([]);
+      return [];
     }
   }
   async getLogByTokenId(tokenId: number): Promise<NftLog[]> {
