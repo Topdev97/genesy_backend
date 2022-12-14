@@ -99,7 +99,7 @@ export class NftService {
             owner: 1,
             name: 1,
             description: 0,
-            imageLink: 1,
+            imageLink: 0,
             tokenId: 0,
             price: 0,
             royalty: 0,
@@ -113,7 +113,7 @@ export class NftService {
           owner: 1,
           name: 1,
           description: 0,
-          imageLink: 1,
+          imageLink: 0,
           tokenId: 0,
           price: 0,
           royalty: 0,
@@ -124,17 +124,26 @@ export class NftService {
         })
         .lean()
         .exec();
-      const peersWallet = peers.map((item) => ({
+      let peersWallet = peers.map((item) => ({
         owner: item.owner,
         name: item.name,
-        avatarLink: item.imageLink,
       }));
       const uniqueArray = (a) =>
         [...new Set(a.map((o) => JSON.stringify(o)))].map((s) =>
           JSON.parse(s as any),
         );
+      peersWallet = uniqueArray(peersWallet);
+      const profiles = await this.profileModel
+        .find({ wallet: { $in: peersWallet.map((item) => item.owner) } })
+        .select({
+          wallet: 1,
+          username: 1,
+          avatarLink: 1,
+        })
+        .lean()
+        .exec();
 
-      return uniqueArray(peersWallet);
+      return profiles;
     } catch (error) {
       return [];
     }
