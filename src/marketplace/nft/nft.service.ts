@@ -52,7 +52,12 @@ export class NftService {
   }
   async getMarketItems() {
     const [recentSales, topPrice, bestArtists] = await Promise.all([
-      this.nftModel.find({}).sort({ lastSoldAt: -1 }).limit(8).lean().exec(),
+      this.nftModel
+        .find({ lastSoldAmount: { $gt: 0 } })
+        .sort({ lastSoldAt: -1 })
+        .limit(8)
+        .lean()
+        .exec(),
       this.nftModel
         .find({
           lastSoldAt: {
