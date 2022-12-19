@@ -35,4 +35,8 @@ export class ProfileController {
   ) {
     return await this.service.toggleFriend(wallet, friend);
   }
+  @Put('toggleVerified/:wallet')
+  async toggleVerified(@Param('wallet') wallet: string) {
+    return await this.service.toggleVerified(wallet);
+  }
 }

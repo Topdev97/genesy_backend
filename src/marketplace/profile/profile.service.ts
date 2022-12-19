@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Nft, NftDocument } from '../nft/nft.schema';
 import { UpdateProfileDto } from './profile.dto';
 import { Profile, ProfileDocument } from './profile.schema';
 
@@ -9,6 +10,8 @@ export class ProfileService {
   constructor(
     @InjectModel(Profile.name)
     private readonly profileModel: Model<ProfileDocument>,
+    @InjectModel(Nft.name)
+    private readonly nftModel: Model<NftDocument>,
   ) {}
 
   async findAll(): Promise<Profile[]> {
@@ -32,6 +35,15 @@ export class ProfileService {
     const indexOf = profile.friends.indexOf(friend);
     if (indexOf >= 0) profile.friends.splice(indexOf, 1);
     else profile.friends.push(friend);
+    await profile.save();
+  }
+
+  async toggleVerified(wallet: string) {
+    const profile = await this.profileModel.findOne({ wallet }).exec();
+    profile.verified = !profile.verified;
+    await this.nftModel
+      .updateMany({ artist: profile.wallet }, { curated: profile.verified })
+      .exec();
     await profile.save();
   }
 }

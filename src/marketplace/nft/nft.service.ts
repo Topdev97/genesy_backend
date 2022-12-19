@@ -44,10 +44,17 @@ export class NftService {
   }
 
   async updateNftItem(tokenId: number, updateNftDto: UpdateNftDto) {
+    const artist = await this.profileModel
+      .findOne({ wallet: updateNftDto.artist })
+      .exec();
     await this.nftModel
-      .findOneAndUpdate({ tokenId }, updateNftDto, {
-        upsert: true,
-      })
+      .findOneAndUpdate(
+        { tokenId },
+        { ...updateNftDto, curated: artist.verified },
+        {
+          upsert: true,
+        },
+      )
       .exec();
   }
   async getMarketItems() {
