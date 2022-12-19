@@ -78,8 +78,9 @@ export class NftService {
   }
 
   async getPrimaryItems(order: string) {
-    const sort: any = {};
-    if (order === '0') sort.mintedAt = -1;
+    const sort: any = {
+      mintedAt: -1,
+    };
     if (order === '1') sort.curated = 1;
     console.log('sort', sort, order);
     return await this.nftModel
