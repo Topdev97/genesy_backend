@@ -13,6 +13,11 @@ export class NftLog {
 
   @Prop({ required: true })
   text: string;
+
+  @Prop({})
+  wallet1: string;
+  @Prop({})
+  wallet2: string;
 }
 
 export const NftLogSchema = SchemaFactory.createForClass(NftLog);
