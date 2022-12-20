@@ -44,8 +44,9 @@ export class NftService {
   }
 
   async updateNftItem(tokenId: number, updateNftDto: UpdateNftDto) {
+    const item = await this.nftModel.findOne({ tokenId }).exec();
     const artist = await this.profileModel
-      .findOne({ wallet: updateNftDto.artist })
+      .findOne({ wallet: item.artist })
       .exec();
     await this.nftModel
       .findOneAndUpdate(
