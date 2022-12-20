@@ -46,8 +46,13 @@ export class ProfileService {
       .exec();
     await profile.save();
   }
-}
 
+  async itemSale(wallet: string, amount: number) {
+    const profile = await this.profileModel.findOne({ wallet }).exec();
+    profile.totalVolume += amount;
+    await profile.save();
+  }
+}
 /*
       verifySignature(
         updateAvatarLinkDto.payloadBytes,

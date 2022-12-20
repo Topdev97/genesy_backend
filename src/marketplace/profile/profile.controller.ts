@@ -39,4 +39,12 @@ export class ProfileController {
   async toggleVerified(@Param('wallet') wallet: string) {
     return await this.service.toggleVerified(wallet);
   }
+
+  @Put('itemSale/:wallet/:amount')
+  async itemSale(
+    @Param('wallet') wallet: string,
+    @Param('amount') amount: number,
+  ) {
+    return await this.service.itemSale(wallet, amount);
+  }
 }
