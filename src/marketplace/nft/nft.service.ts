@@ -97,6 +97,18 @@ export class NftService {
     };
     if (order === '1') sort.curated = 1;
     console.log('sort', sort, order);
+    if (order === '1')
+      return await this.nftModel
+        .find({
+          $expr: { $eq: ['$artist', '$owner'] },
+          price: { $gt: 0 },
+          curated: true,
+        })
+        .sort(sort)
+        .skip(page * pageSize)
+        .limit(pageSize)
+        .lean()
+        .exec();
     return await this.nftModel
       .find({ $expr: { $eq: ['$artist', '$owner'] }, price: { $gt: 0 } })
       .sort(sort)
