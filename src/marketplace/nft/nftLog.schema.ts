@@ -11,13 +11,11 @@ export class NftLog {
   @Prop({ required: true })
   timestamp: Date;
 
-  @Prop({ required: true })
-  text: string;
-
-  @Prop({})
-  wallet1: string;
-  @Prop({})
-  wallet2: string;
+  @Prop({ type: Object })
+  content: {
+    text: string;
+    link: string;
+  }[];
 }
 
 export const NftLogSchema = SchemaFactory.createForClass(NftLog);

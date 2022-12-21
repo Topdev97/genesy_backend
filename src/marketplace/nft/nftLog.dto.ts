@@ -1,8 +1,10 @@
+class LogItem {
+  text: string;
+  link: string;
+}
 export class BaseNftLogDto {
   timestamp: Date;
-  text: string;
-  wallet1: string;
-  wallet2: string;
+  content: Array<LogItem>;
 }
 
 export class CreateNftLogDto extends BaseNftLogDto {}

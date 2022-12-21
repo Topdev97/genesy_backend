@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { Model } from 'mongoose';
 import { Profile, ProfileDocument } from '../profile/profile.schema';
 import { ProfileService } from '../profile/profile.service';
@@ -169,12 +170,14 @@ export class NftService {
   async getLogByTokenId(tokenId: number): Promise<NftLog[]> {
     return await this.nftLogModel.find({ tokenId }).lean().exec();
   }
+
   async createLogByTokenId(
     tokenId: number,
     createNftLogDto: CreateNftLogDto,
   ): Promise<NftLog> {
     const newLog = await this.nftLogModel.create({
       tokenId,
+      timestamp: new Date(),
       ...createNftLogDto,
     });
     newLog.save();
