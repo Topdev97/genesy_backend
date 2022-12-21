@@ -91,7 +91,7 @@ export class NftService {
     };
   }
 
-  async getPrimaryItems(order: string) {
+  async getPrimaryItems(order: string, page: number, pageSize: number) {
     const sort: any = {
       mintedAt: -1,
     };
@@ -100,6 +100,8 @@ export class NftService {
     return await this.nftModel
       .find({ $expr: { $eq: ['$artist', '$owner'] }, price: { $gt: 0 } })
       .sort(sort)
+      .skip(page * pageSize)
+      .limit(pageSize)
       .lean()
       .exec();
     // await this.nftModel.find({}).lean().exec();
